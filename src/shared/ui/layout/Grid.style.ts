@@ -1,17 +1,16 @@
 import styled from 'styled-components';
 
-import type { Gutter } from '@/shared/types/styles.types';
-import { GUTTER } from '@/shared/types/styles.types';
+import { type Spacing, spacing } from '@/shared/config/styles';
 
 type GridProps = {
   columnMinWidth?: string;
-  gap?: Gutter;
+  gap?: Spacing;
   columns?: number; // 고정 컬럼 수
 };
 
 export const Grid = styled.div<GridProps>`
   display: grid;
-  gap: ${({ gap }) => gap ?? GUTTER.sm};
+  gap: ${({ gap }) => gap ?? spacing.sm};
 
   ${({ columnMinWidth, columns }) => {
     if (columns) {

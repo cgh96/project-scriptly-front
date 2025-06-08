@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
-import type { Theme } from '@/shared/types/styles.types';
+import { lineHeights } from '@/shared/config/styles';
+import type { Theme } from '@/shared/config/theme';
 
 export const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
   /* CSS Reset */
@@ -36,15 +37,19 @@ export const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
 
 
   body {
-    background-color: ${(props) => props.theme.colors.background};
-    color: ${(props) => props.theme.colors.textPrimary};
+    background-color: ${(props) => props.theme.colors.components.background.default};
+    color: ${(props) => props.theme.colors.components.text.primary};
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif, system-ui, Avenir, Helvetica;
-    line-height: ${(props) => props.theme.lineHeights.normal};
+    line-height: ${lineHeights.normal};
     transition: background-color 0.2s ease, color 0.2s ease;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    & * {
+      color: ${(props) => props.theme.colors.components.text.primary};
+    }
   }
 
   /* Remove list styles */

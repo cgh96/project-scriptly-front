@@ -2,8 +2,7 @@ import type { ReactNode } from 'react';
 import React, { createContext, useContext, useState } from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
-import { darkTheme, lightTheme } from '@/shared/config/theme';
-import type { Theme } from '@/shared/types/styles.types';
+import { darkTheme, lightTheme, type Theme } from '@/shared/config/theme';
 
 export type ThemeContext = {
   theme: Theme;

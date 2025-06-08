@@ -1,6 +1,6 @@
 import 'styled-components';
 
-import type { Theme } from './styles.types';
+import type { Theme } from './theme.types';
 
 // styled-components 타입 확장
 declare module 'styled-components' {
