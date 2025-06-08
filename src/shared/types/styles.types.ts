@@ -2,7 +2,7 @@ import 'styled-components';
 
 // TypeScript 타입 정의
 // 색상 관련 타입들
-interface ColorPalette {
+export interface ColorPalette {
   // Primary Colors
   primary: string;
   primaryHover: string;
@@ -34,7 +34,7 @@ interface ColorPalette {
   info: string;
 }
 
-interface FontSizes {
+export interface FontSizes {
   h1: string;
   h2: string;
   h3: string;
@@ -46,20 +46,30 @@ interface FontSizes {
   xs: string;
 }
 
-interface LineHeights {
+export interface LineHeights {
   tight: number;
   normal: number;
   relaxed: number;
 }
 
-interface Breakpoints {
+export interface Breakpoints {
   mobile: string;
   tablet: string;
   desktop: string;
   wide: string;
 }
 
-interface Shadows {
+export interface Spacing {
+  xs: string;
+  sm: string;
+  md: string;
+  lg: string;
+  xl: string;
+  ['2xl']: string;
+  ['3xl']: string;
+}
+
+export interface Shadows {
   sm: string;
   md: string;
   lg: string;
@@ -68,21 +78,9 @@ interface Shadows {
 // 메인 테마 타입
 export interface Theme {
   colors: ColorPalette;
-  fonts: FontSizes;
   lineHeights: LineHeights;
+  fontSizes: FontSizes;
   breakpoints: Breakpoints;
+  spacing: Spacing;
   shadows: Shadows;
 }
-
-// gap
-export const GUTTER = {
-  xs: '0.25rem', // 4px
-  sm: '0.5rem', // 8px
-  md: '1rem', // 16px
-  lg: '1.5rem', // 24px
-  xl: '2rem', // 32px
-  '2xl': '3rem', // 48px
-  '3xl': '4rem', // 64px
-} as const;
-
-export type Gutter = (typeof GUTTER)[keyof typeof GUTTER];
