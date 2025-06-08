@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState } from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
 import { darkTheme, lightTheme } from '@/shared/config/theme';
-import type { Theme } from '@/shared/types/theme';
+import type { Theme } from '@/shared/types/styles.types';
 
 export type ThemeContext = {
   theme: Theme;

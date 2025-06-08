@@ -1,4 +1,4 @@
-import "styled-components";
+import 'styled-components';
 
 // TypeScript 타입 정의
 // 색상 관련 타입들
@@ -73,3 +73,16 @@ export interface Theme {
   breakpoints: Breakpoints;
   shadows: Shadows;
 }
+
+// gap
+export const GUTTER = {
+  xs: '0.25rem', // 4px
+  sm: '0.5rem', // 8px
+  md: '1rem', // 16px
+  lg: '1.5rem', // 24px
+  xl: '2rem', // 32px
+  '2xl': '3rem', // 48px
+  '3xl': '4rem', // 64px
+} as const;
+
+export type Gutter = (typeof GUTTER)[keyof typeof GUTTER];
