@@ -1,7 +1,7 @@
-import { SplitView } from '@/shared/ui/layout/FlexSplit';
-import { Page } from '@/shared/ui/layout/Page';
+import { RouterProvider } from 'react-router';
 
 import { useTheme } from './providers/ThemeProvider';
+import { router } from './routes';
 import { GlobalStyle } from './styles/GlobalStyles.styles';
 
 function App() {
@@ -10,9 +10,7 @@ function App() {
   return (
     <>
       <GlobalStyle theme={theme} />
-      <Page>
-        <SplitView></SplitView>
-      </Page>
+      <RouterProvider router={router} />
     </>
   );
 }

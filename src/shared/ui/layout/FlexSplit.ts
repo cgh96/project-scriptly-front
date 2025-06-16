@@ -8,7 +8,7 @@ type FlexSplitProps = {
 };
 
 /** Flex 사용해서 화면 분할 */
-export const SplitView = styled.div<FlexSplitProps>`
+export const FlexSplit = styled.div<FlexSplitProps>`
   display: flex;
   direction: ${({ direction }) => direction ?? 'row'};
   gap: ${({ gap }) => gap ?? 0};
