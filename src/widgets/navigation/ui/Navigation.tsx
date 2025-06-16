@@ -1,3 +1,5 @@
+import * as S from './Navigation.style';
+
 export const Navigation = () => {
-  return <div>Navigation</div>;
+  return <S.Conatainer>Navigation</S.Conatainer>;
 };

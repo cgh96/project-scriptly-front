@@ -1,8 +1,9 @@
 import { createBrowserRouter } from 'react-router';
 
-import { HomePage } from '@/pages/home/ui/HomePage';
+import { RootLayout } from '@/app/RootLayout';
+import { entryLoader } from '@/pages/entry/model/loader';
+import { EntryPage } from '@/pages/entry/ui/EntryPage';
 import { MemoPage } from '@/pages/memo/ui/MemoPage';
-import { RootLayout } from '@/shared/ui/layout/RootLayout';
 
 /** React Router (Data Mode)
  * Data Mode vs FrameworkMode
@@ -21,7 +22,8 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: HomePage,
+        Component: EntryPage,
+        loader: entryLoader,
       },
       {
         path: 'memo/:memoId',
