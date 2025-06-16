@@ -18,7 +18,7 @@ export const Grid = styled.div<GridProps>`
     }
 
     // 컨테이너 너비에 맞춰서 아이템 채우기
-    const minWidth = columnMinWidth || '310px';
+    const minWidth = columnMinWidth || '33%';
     return `grid-template-columns: repeat(auto-fit, minmax(${minWidth}, 1fr));`;
   }}
 `;

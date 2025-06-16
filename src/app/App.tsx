@@ -1,16 +1,18 @@
+import { SplitView } from '@/shared/ui/layout/FlexSplit';
+import { Page } from '@/shared/ui/layout/Page';
+
 import { useTheme } from './providers/ThemeProvider';
 import { GlobalStyle } from './styles/GlobalStyles.styles';
 
 function App() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <>
       <GlobalStyle theme={theme} />
-      <button type="button" onClick={toggleTheme}>
-        버튼
-      </button>
-      <div>App Component</div>
+      <Page>
+        <SplitView></SplitView>
+      </Page>
     </>
   );
 }
