@@ -8,7 +8,7 @@ export const fontSizes = {
   body: '1rem', // 16px
   small: '0.875rem', // 14px
   xs: '0.75rem', // 12px
-};
+} as const;
 
 export type FontSizes = (typeof fontSizes)[keyof typeof fontSizes];
 
