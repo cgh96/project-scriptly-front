@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router';
 
-import { RootLayout } from '@/app/RootLayout';
+import { RootLayout } from '@/app/layout/RootLayout';
 import { entryLoader } from '@/pages/entry/model/loader';
 import { EntryPage } from '@/pages/entry/ui/EntryPage';
 import { MemoPage } from '@/pages/memo/ui/MemoPage';
