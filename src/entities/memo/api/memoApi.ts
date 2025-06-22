@@ -38,8 +38,8 @@ export const memoApi = {
       updatedAt: now,
       isPublic: data.isPublic,
       isPinned: false,
-      isActive: false,
-      tags: [],
+      password: data.password,
+      folderId: data.folderId,
     };
 
     const updatedMemos = [...memos, newMemo];

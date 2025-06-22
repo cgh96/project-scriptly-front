@@ -1,4 +1,4 @@
-export interface Memo {
+export interface IdbMemo {
   // 기본 식별자
   id: string;
 
@@ -19,20 +19,4 @@ export interface Memo {
   // 설정
   isPublic: boolean; // 공유 기능용
   password?: string; // 비밀번호 보호용
-}
-
-export interface CreateMemoRequest {
-  title: string;
-  content: string;
-  isPublic: boolean;
-  password?: string;
-  folderId?: string;
-}
-
-export interface UpdateMemoRequest {
-  title?: string;
-  content?: string;
-  isPinned?: boolean;
-  isPublic?: boolean;
-  password?: string;
 }

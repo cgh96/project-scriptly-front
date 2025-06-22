@@ -1,0 +1,25 @@
+import type { IdbMemo } from '@/entities/memo/model/idb.types';
+
+// shared/lib/indexed-db/schema.ts
+export const DB_NAME = 'MemoApp';
+export const DB_VERSION = 1;
+
+/**
+ * schema 정의
+ * @name : 테이블 이름
+ * @options : 테이블 옵션
+ * @indexes : 인덱스 정의
+ * @keyPath : 기본 키 (Primary Key) => 단일키, 복합키 등 가능
+ */
+function createSchema<T>(name: string, keyPath: keyof T, indexes: Array<keyof T>) {
+  return {
+    name,
+    options: { keyPath },
+    indexes: indexes.map((index) => ({ name: index as string, keyPath: index as string })),
+  };
+}
+
+export const schemas = [
+  // 메모 테이블
+  createSchema<IdbMemo>('memos', 'id', ['createdAt', 'folderId']),
+];

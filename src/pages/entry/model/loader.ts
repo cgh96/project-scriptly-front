@@ -1,4 +1,4 @@
-import { memoApi } from '@/entities/memo/api';
+import { memoApi } from '@/entities/memo/api/memoApi';
 import type { Memo } from '@/entities/memo/model/types';
 
 export interface EntryLoaderData {
