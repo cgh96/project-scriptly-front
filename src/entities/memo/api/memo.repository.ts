@@ -5,5 +5,5 @@ export interface MemoRepository {
   getById(id: string): Promise<Memo | null>;
   create(memo: CreateMemoRequest): Promise<Memo>;
   update(id: string, memo: UpdateMemoRequest): Promise<Memo>;
-  delete(id: string): Promise<void>;
+  remove(id: string): Promise<void>;
 }

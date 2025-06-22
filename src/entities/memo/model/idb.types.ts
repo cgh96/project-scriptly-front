@@ -7,8 +7,8 @@ export interface IdbMemo {
   content: string; // 마크다운 원본
 
   // 메타데이터
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 
   // 상태
   isPinned: boolean;

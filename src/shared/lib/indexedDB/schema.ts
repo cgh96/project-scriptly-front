@@ -4,6 +4,11 @@ import type { IdbMemo } from '@/entities/memo/model/idb.types';
 export const DB_NAME = 'MemoApp';
 export const DB_VERSION = 1;
 
+interface IndexConfig<T> {
+  name: keyof T;
+  options?: IDBIndexParameters;
+}
+
 /**
  * schema 정의
  * @name : 테이블 이름
@@ -11,15 +16,18 @@ export const DB_VERSION = 1;
  * @indexes : 인덱스 정의
  * @keyPath : 기본 키 (Primary Key) => 단일키, 복합키 등 가능
  */
-function createSchema<T>(name: string, keyPath: keyof T, indexes: Array<keyof T>) {
+function createSchema<T>(name: string, keyPath: keyof T, indexes: Array<IndexConfig<T>>) {
   return {
     name,
     options: { keyPath },
-    indexes: indexes.map((index) => ({ name: index as string, keyPath: index as string })),
+    indexes: indexes.map((index) => ({
+      name: index.name as string,
+      keyPath: index.name as string,
+      options: index.options || {},
+    })),
   };
 }
 
-export const schemas = [
-  // 메모 테이블
-  createSchema<IdbMemo>('memos', 'id', ['createdAt', 'folderId']),
-];
+const memo = createSchema<IdbMemo>('memos', 'id', [{ name: 'createdAt' }, { name: 'folderId' }]);
+
+export const schema = { memo };
