@@ -11,11 +11,9 @@ export interface Memo {
   updatedAt: Date;
 
   // 상태
-  isActive: boolean;
   isPinned: boolean;
 
   // 분류
-  tags: string[];
   folderId?: string; // 폴더 기능 추가 시
 
   // 설정
@@ -27,11 +25,13 @@ export interface CreateMemoRequest {
   title: string;
   content: string;
   isPublic: boolean;
+  password?: string;
 }
 
 export interface UpdateMemoRequest {
   title?: string;
   content?: string;
   isPinned?: boolean;
-  tags?: string[];
+  isPublic?: boolean;
+  password?: string;
 }

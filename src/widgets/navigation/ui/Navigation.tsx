@@ -1,4 +1,4 @@
-import { MemoNavigation } from '@/features/memoNavigation/ui/MemoNavigation';
+import { MemoNavigation } from '@/features/memo/navigation/ui/MemoNavigation';
 
 import * as S from './Navigation.styles';
 
