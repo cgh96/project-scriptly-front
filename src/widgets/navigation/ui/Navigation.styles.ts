@@ -6,8 +6,10 @@ type ConatainerProps = {
   theme: Theme;
 };
 
-export const Conatainer = styled.ul<ConatainerProps>`
+export const Conatainer = styled.nav<ConatainerProps>`
   display: flex;
+  width: 200px;
+  min-width: 200px;
 
   background-color: ${({ theme }) => theme.colors.components.background.surface};
   box-shadow: ${({ theme }) => theme.shadows.lg};

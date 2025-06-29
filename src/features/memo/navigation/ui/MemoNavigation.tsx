@@ -1,14 +1,21 @@
 import { mockMemos } from '@/shared/mock/memo';
+import { EmptyContent } from '@/shared/ui/empty/EmptyContent';
 import { List } from '@/shared/ui/layout/List';
 
 import { MemoNavigationItem } from './MemoNavigationItem';
 
 export const MemoNavigation = () => {
   return (
-    <List>
-      {mockMemos.map((memo) => (
-        <MemoNavigationItem key={memo.id} memo={memo} />
-      ))}
-    </List>
+    <>
+      {mockMemos.length > 0 ? (
+        <List>
+          {mockMemos.map((memo) => (
+            <MemoNavigationItem key={memo.id} memo={memo} />
+          ))}
+        </List>
+      ) : (
+        <EmptyContent title="메모 없음" />
+      )}
+    </>
   );
 };
