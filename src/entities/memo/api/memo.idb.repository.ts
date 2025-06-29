@@ -27,52 +27,134 @@ const toIdb = (memo: CreateMemoRequest): IdbMemo => ({
   isPublic: memo.isPublic,
   password: memo.password,
   folderId: memo.folderId,
-  createdAt: dayjs().toISOString(), // UTC로 저장 (표준시간대)
+  createdAt: dayjs().toISOString(),
   updatedAt: dayjs().toISOString(),
 });
 
+/**
+ * IndexedDB는 삭제/수정 할 데이터의 존재여부와 상관없이 항상 성공을 반환함.
+ * REST API교체를 대비해서 삭제/수정할 데이터가 없는 경우까지 고려하여 코드 작성.
+ *
+ * Promise 객체로 반환하도록 작성하여 비동기 처리 가능하도록 함.
+ */
+
 export const createIdbMemoRepository = (db: IDBDatabase): MemoRepository => {
-  const getAll = async (): Promise<Memo[]> => {
-    const idbMemos = await executeTransaction(db, schema.memo.name, 'readonly', (store) =>
-      store.getAll(),
+  const getMemos = async (): Promise<Memo[]> => {
+    const idbMemos = await executeTransaction<IdbMemo[]>(
+      db,
+      schema.memo.name,
+      'readonly',
+      async (store) => {
+        const request = store.getAll();
+        return new Promise<IdbMemo[]>((resolve, reject) => {
+          request.onsuccess = () => resolve(request.result);
+          request.onerror = () => reject(request.error);
+        });
+      },
     );
-    return (idbMemos as IdbMemo[]).map(toDomain);
+    return idbMemos?.map(toDomain) ?? [];
   };
 
-  const getById = async (id: string): Promise<Memo | null> => {
-    const idbMemo = await executeTransaction(db, schema.memo.name, 'readonly', (store) =>
-      store.get(id),
+  const getMemo = async (id: string): Promise<Memo> => {
+    const idbMemo = await executeTransaction<IdbMemo | undefined>(
+      db,
+      schema.memo.name,
+      'readonly',
+      async (store) => {
+        const request = store.get(id);
+        return new Promise<IdbMemo | undefined>((resolve, reject) => {
+          request.onsuccess = () => resolve(request.result);
+          request.onerror = () => reject(request.error);
+        });
+      },
     );
-    return idbMemo ? toDomain(idbMemo as IdbMemo) : null;
-  };
 
-  const create = async (memo: CreateMemoRequest): Promise<Memo> => {
-    return await executeTransaction(db, schema.memo.name, 'readwrite', (store) =>
-      store.add(toIdb(memo)),
-    );
-  };
-
-  const update = async (id: string, memo: UpdateMemoRequest): Promise<Memo> => {
-    const existingMemo = await getById(id);
-    if (!existingMemo) {
+    if (!idbMemo) {
       throw new Error(`Memo with id ${id} not found`);
     }
+    return toDomain(idbMemo);
+  };
 
-    const updatedMemo = { ...existingMemo, ...memo };
-    return await executeTransaction(db, schema.memo.name, 'readwrite', (store) =>
-      store.put(updatedMemo),
+  const createMemo = async (memo: CreateMemoRequest): Promise<Memo> => {
+    const idbMemo = await executeTransaction<IdbMemo>(
+      db,
+      schema.memo.name,
+      'readwrite',
+      async (store) => {
+        const newIdbMemo = toIdb(memo);
+        await new Promise<void>((resolve, reject) => {
+          const req = store.add(newIdbMemo);
+          req.onsuccess = () => resolve();
+          req.onerror = () => reject(req.error);
+        });
+        return newIdbMemo;
+      },
     );
+
+    if (!idbMemo) {
+      throw new Error('Failed to create memo');
+    }
+    return toDomain(idbMemo);
   };
 
-  const remove = async (id: string): Promise<void> => {
-    return await executeTransaction(db, schema.memo.name, 'readwrite', (store) => store.delete(id));
+  const updateMemo = async (id: string, data: UpdateMemoRequest): Promise<Memo> => {
+    // 존재 확인 및 도메인 변환
+    const existing = await getMemo(id);
+
+    const updatedDomain: Memo = {
+      ...existing,
+      ...data,
+      updatedAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+    };
+
+    const updatedIdb = await executeTransaction<IdbMemo>(
+      db,
+      schema.memo.name,
+      'readwrite',
+      async (store) => {
+        const entity = toIdb(updatedDomain);
+        await new Promise<void>((resolve, reject) => {
+          const req = store.put(entity);
+          req.onsuccess = () => resolve();
+          req.onerror = () => reject(req.error);
+        });
+        return entity;
+      },
+    );
+
+    if (!updatedIdb) {
+      throw new Error(`Failed to update memo with id ${id}`);
+    }
+    return toDomain(updatedIdb);
   };
 
-  return {
-    getAll,
-    getById,
-    create,
-    update,
-    remove,
+  const deleteMemo = async (id: string): Promise<Memo> => {
+    const idbMemo = await executeTransaction<IdbMemo | undefined>(
+      db,
+      schema.memo.name,
+      'readwrite',
+      async (store) => {
+        const existing = await new Promise<IdbMemo | undefined>((resolve, reject) => {
+          const req = store.get(id);
+          req.onsuccess = () => resolve(req.result as IdbMemo | undefined);
+          req.onerror = () => reject(req.error);
+        });
+        if (!existing) return undefined;
+
+        await new Promise<void>((resolve, reject) => {
+          const req = store.delete(id);
+          req.onsuccess = () => resolve();
+          req.onerror = () => reject(req.error);
+        });
+        return existing;
+      },
+    );
+
+    if (!idbMemo) {
+      throw new Error(`Memo with id ${id} not found`);
+    }
+    return toDomain(idbMemo);
   };
+
+  return { getMemos, getMemo, createMemo, updateMemo, deleteMemo };
 };

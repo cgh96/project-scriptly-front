@@ -29,5 +29,5 @@ function createSchema<T>(name: string, keyPath: keyof T, indexes: Array<IndexCon
 }
 
 export const schema = {
-  memo: createSchema<IdbMemo>('memos', 'id', [{ name: 'createdAt' }, { name: 'folderId' }]),
+  memo: createSchema<IdbMemo>('memos', 'id', [{ name: 'folderId' }, { name: 'createdAt' }]),
 };

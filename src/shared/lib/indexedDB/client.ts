@@ -1,4 +1,3 @@
-// shared/lib/indexed-db/connection.ts
 import { DB_NAME, DB_VERSION, schema } from './schema';
 
 export const getIndexedDB = (): Promise<IDBDatabase> => {

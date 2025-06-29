@@ -1,2 +1,3 @@
+export * from './memo.http.repository';
 export * from './memo.idb.repository';
-export * from './memoApi';
+export * from './memo.repository';
