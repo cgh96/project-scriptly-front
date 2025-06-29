@@ -1,5 +1,7 @@
+import { useAtom } from 'jotai';
 import { RouterProvider } from 'react-router';
 
+import { dbAtom } from '@/shared/model/dbAtom';
 import { ViewPort } from '@/shared/ui/layout/ViewPort';
 
 import { useTheme } from './providers/ThemeProvider';
@@ -8,6 +10,7 @@ import { GlobalStyle } from './styles/GlobalStyles.styles';
 
 function App() {
   const { theme } = useTheme();
+  useAtom(dbAtom);
 
   return (
     <>
