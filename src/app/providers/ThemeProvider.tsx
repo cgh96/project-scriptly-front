@@ -4,6 +4,8 @@ import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
 import { darkTheme, lightTheme, type Theme } from '@/shared/config/theme';
 
+import { GlobalStyle } from '../styles/GlobalStyles.styles';
+
 export type ThemeContext = {
   theme: Theme;
   isDark: boolean;
@@ -33,7 +35,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   return (
     <themeContext.Provider value={contextValue}>
-      <StyledThemeProvider theme={theme}>{children}</StyledThemeProvider>
+      <StyledThemeProvider theme={theme}>
+        <GlobalStyle theme={theme} />
+        {children}
+      </StyledThemeProvider>
     </themeContext.Provider>
   );
 };
