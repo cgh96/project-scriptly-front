@@ -70,11 +70,6 @@ export interface Shadows {
 export interface Theme {
   colors: ColorPalette;
   shadows: Shadows;
-  borderRadius: {
-    sm: string;
-    md: string;
-    lg: string;
-  };
 }
 
 export const lightTheme: Theme = {
@@ -155,11 +150,6 @@ export const lightTheme: Theme = {
     md: '0 4px 6px -1px rgba(41, 37, 36, 0.1)', // moderate shadow
     lg: '0 10px 15px -3px rgba(41, 37, 36, 0.1)', // stronger shadow
   },
-  borderRadius: {
-    sm: '4px', // small
-    md: '8px', // medium
-    lg: '16px', // large
-  },
 };
 
 export const darkTheme: Theme = {
@@ -239,10 +229,5 @@ export const darkTheme: Theme = {
     sm: '0 1px 2px 0 rgba(0, 0, 0, 0.4)',
     md: '0 4px 6px -1px rgba(0, 0, 0, 0.5)',
     lg: '0 10px 15px -3px rgba(0, 0, 0, 0.5)',
-  },
-  borderRadius: {
-    sm: '4px',
-    md: '8px',
-    lg: '16px',
   },
 };

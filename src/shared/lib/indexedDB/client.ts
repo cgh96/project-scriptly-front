@@ -1,6 +1,8 @@
 import { DB_NAME, DB_VERSION, schema } from './schema';
 
-export const getIndexedDB = (): Promise<IDBDatabase> => {
+let dbInstance: Promise<IDBDatabase> | null = null;
+
+export const openIndexedDB = (): Promise<IDBDatabase> => {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, DB_VERSION);
 
@@ -23,4 +25,12 @@ export const getIndexedDB = (): Promise<IDBDatabase> => {
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
   });
+};
+
+/** 싱글톤으로 하나의 DB인스턴스만 갖도록 구현 */
+export const getIndexedDB = (): Promise<IDBDatabase> => {
+  if (!dbInstance) {
+    dbInstance = openIndexedDB();
+  }
+  return dbInstance;
 };

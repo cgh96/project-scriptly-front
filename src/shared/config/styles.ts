@@ -41,3 +41,41 @@ export const spacing = {
 } as const;
 
 export type Spacing = (typeof spacing)[keyof typeof spacing];
+
+// radius
+export const borderRadius = {
+  sm: '4px',
+  md: '8px',
+  lg: '16px',
+} as const;
+
+export type BorderRadius = (typeof borderRadius)[keyof typeof borderRadius];
+
+export const buttonSizes = {
+  sm: 'sm',
+  md: 'md',
+  lg: 'lg',
+} as const;
+
+export type ButtonSizes = (typeof buttonSizes)[keyof typeof buttonSizes];
+
+// 버튼 사이즈별 스타일 매핑
+export const buttonSizeStyles = {
+  sm: {
+    padding: spacing.xs,
+    fontSize: fontSizes.small,
+    borderRadius: borderRadius.sm,
+  },
+  md: {
+    padding: spacing.sm,
+    fontSize: fontSizes.body,
+    borderRadius: borderRadius.md,
+  },
+  lg: {
+    padding: spacing.md,
+    fontSize: fontSizes.h6,
+    borderRadius: borderRadius.lg,
+  },
+} as const;
+
+export type ButtonSizeStyles = (typeof buttonSizeStyles)[keyof typeof buttonSizeStyles]; // 'sm'|'md'|'lg'

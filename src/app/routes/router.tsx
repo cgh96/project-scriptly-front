@@ -4,6 +4,8 @@ import { RootLayout } from '@/app/layout/RootLayout';
 import { entryLoader } from '@/pages/entry/model/loader';
 import { EntryPage } from '@/pages/entry/ui/EntryPage';
 import { MemoPage } from '@/pages/memo/ui/MemoPage';
+import { getIndexedDB } from '@/shared/lib/indexedDB';
+import { IndexedDBLoading } from '@/shared/ui/loading/IndexedDBLoading';
 
 /** React Router (Data Mode)
  * Data Mode vs FrameworkMode
@@ -15,15 +17,23 @@ import { MemoPage } from '@/pages/memo/ui/MemoPage';
  * 특히 React Router v6.4+ 문서는 전부 Data APIs 기반으로 작성됨.
  */
 
+/** 데이터베이스 초기화 로더 */
+const dbLoader = async () => {
+  const db = await getIndexedDB();
+  return { db };
+};
+
 export const router = createBrowserRouter([
   {
     path: '/',
     Component: RootLayout,
+    loader: dbLoader,
     children: [
       {
         index: true,
         Component: EntryPage,
         loader: entryLoader,
+        hydrateFallbackElement: <IndexedDBLoading />,
       },
       {
         path: 'memo/:memoId',
