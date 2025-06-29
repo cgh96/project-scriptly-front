@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import type { IdbMemo } from '@/entities/memo/model/idb.types';
 import type { CreateMemoRequest, Memo, UpdateMemoRequest } from '@/entities/memo/model/types';
 import { schema } from '@/shared/lib/indexedDB';
+import { executeTransaction } from '@/shared/lib/indexedDB/transaction';
 
 import type { MemoRepository } from './memo.repository';
 
@@ -32,40 +33,39 @@ const toIdb = (memo: CreateMemoRequest): IdbMemo => ({
 
 export const createIdbMemoRepository = (db: IDBDatabase): MemoRepository => {
   const getAll = async (): Promise<Memo[]> => {
-    const transaction = db.transaction([schema.memo.name], 'readonly');
-    const store = transaction.objectStore('memos');
-    const request = store.getAll();
-
-    return new Promise((resolve, reject) => {
-      request.onsuccess = () => {
-        const idbMemos = request.result;
-        resolve(idbMemos.map(toDomain));
-      };
-      request.onerror = () => reject(request.error);
-    });
+    const idbMemos = await executeTransaction(db, schema.memo.name, 'readonly', (store) =>
+      store.getAll(),
+    );
+    return (idbMemos as IdbMemo[]).map(toDomain);
   };
 
   const getById = async (id: string): Promise<Memo | null> => {
-    // 구현
+    const idbMemo = await executeTransaction(db, schema.memo.name, 'readonly', (store) =>
+      store.get(id),
+    );
+    return idbMemo ? toDomain(idbMemo as IdbMemo) : null;
   };
 
   const create = async (memo: CreateMemoRequest): Promise<Memo> => {
-    const transaction = db.transaction([schema.memo.name], 'readwrite');
-    const store = transaction.objectStore(schema.memo.name);
-    const request = store.add(toIdb(memo));
-
-    return new Promise((resolve, reject) => {
-      request.onsuccess = () => resolve(toDomain(request.result as unknown as IdbMemo));
-      request.onerror = () => reject(request.error);
-    });
+    return await executeTransaction(db, schema.memo.name, 'readwrite', (store) =>
+      store.add(toIdb(memo)),
+    );
   };
 
   const update = async (id: string, memo: UpdateMemoRequest): Promise<Memo> => {
-    // 구현
+    const existingMemo = await getById(id);
+    if (!existingMemo) {
+      throw new Error(`Memo with id ${id} not found`);
+    }
+
+    const updatedMemo = { ...existingMemo, ...memo };
+    return await executeTransaction(db, schema.memo.name, 'readwrite', (store) =>
+      store.put(updatedMemo),
+    );
   };
 
   const remove = async (id: string): Promise<void> => {
-    // 구현
+    return await executeTransaction(db, schema.memo.name, 'readwrite', (store) => store.delete(id));
   };
 
   return {

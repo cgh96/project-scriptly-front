@@ -1,5 +1,5 @@
 // shared/lib/indexed-db/connection.ts
-import { DB_NAME, DB_VERSION, schemas } from './schema';
+import { DB_NAME, DB_VERSION, schema } from './schema';
 
 export const getIndexedDB = (): Promise<IDBDatabase> => {
   return new Promise((resolve, reject) => {
@@ -9,7 +9,7 @@ export const getIndexedDB = (): Promise<IDBDatabase> => {
       const db = request.result;
 
       // 스키마 배열을 순회하며 자동 생성
-      schemas.forEach((schema) => {
+      Object.values(schema).forEach((schema) => {
         if (!db.objectStoreNames.contains(schema.name)) {
           const store = db.createObjectStore(schema.name, schema.options);
 

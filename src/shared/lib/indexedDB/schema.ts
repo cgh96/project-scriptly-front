@@ -28,6 +28,6 @@ function createSchema<T>(name: string, keyPath: keyof T, indexes: Array<IndexCon
   };
 }
 
-const memo = createSchema<IdbMemo>('memos', 'id', [{ name: 'createdAt' }, { name: 'folderId' }]);
-
-export const schema = { memo };
+export const schema = {
+  memo: createSchema<IdbMemo>('memos', 'id', [{ name: 'createdAt' }, { name: 'folderId' }]),
+};
