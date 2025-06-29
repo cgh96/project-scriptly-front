@@ -5,7 +5,9 @@ import type { Theme } from '@/shared/config/theme';
 
 import { Center } from '../layout/Center';
 
-export const Container = styled(Center)``;
+export const Container = styled(Center)`
+  flex-direction: column;
+`;
 
 export const Title = styled.p<{ theme: Theme }>`
   font-size: ${fontSizes.h3};
