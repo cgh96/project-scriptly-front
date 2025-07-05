@@ -1,13 +1,22 @@
 export const fontSizes = {
-  h1: '2.25rem', // 36px
-  h2: '1.875rem', // 30px
-  h3: '1.5rem', // 24px
-  h4: '1.25rem', // 20px
-  h5: '1.125rem', // 18px
-  h6: '1rem', // 16px
-  body: '1rem', // 16px
-  small: '0.875rem', // 14px
-  xs: '0.75rem', // 12px
+  /** 36px */
+  h1: '2.25rem',
+  /** 30px */
+  h2: '1.875rem',
+  /** 24px */
+  h3: '1.5rem',
+  /** 20px */
+  h4: '1.25rem',
+  /** 18px */
+  h5: '1.125rem',
+  /** 16px */
+  h6: '1rem',
+  /** 14px */
+  body: '1rem',
+  /** 12px */
+  small: '0.875rem',
+  /** 12px */
+  xs: '0.75rem',
 } as const;
 
 export type FontSizes = (typeof fontSizes)[keyof typeof fontSizes];
@@ -62,19 +71,19 @@ export type ButtonSizes = (typeof buttonSizes)[keyof typeof buttonSizes];
 // 버튼 사이즈별 스타일 매핑
 export const buttonSizeStyles = {
   sm: {
-    padding: spacing.xs,
+    padding: `${spacing.xs} ${spacing.sm}`,
     fontSize: fontSizes.small,
-    borderRadius: borderRadius.sm,
+    borderRadius: borderRadius.md,
   },
   md: {
-    padding: spacing.sm,
+    padding: `${spacing.sm} ${spacing.md}`,
     fontSize: fontSizes.body,
     borderRadius: borderRadius.md,
   },
   lg: {
-    padding: spacing.md,
-    fontSize: fontSizes.h6,
-    borderRadius: borderRadius.lg,
+    padding: `${spacing.sm} ${spacing.md}`,
+    fontSize: fontSizes.h5,
+    borderRadius: borderRadius.md,
   },
 } as const;
 

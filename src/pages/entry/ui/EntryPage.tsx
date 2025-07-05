@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useLoaderData, useNavigate } from 'react-router';
 
 import { buttonSizes } from '@/shared/config/styles';
-import { PrimaryButton } from '@/shared/ui/button/Button';
+import { PrimaryButton } from '@/shared/ui/button';
 import { EmptyContent } from '@/shared/ui/empty/EmptyContent';
 import { Page } from '@/shared/ui/layout/Page';
 
@@ -22,7 +22,9 @@ export const EntryPage = () => {
     return (
       <Page className="entry-page">
         <EmptyContent title="메모가 없습니다.">
-          <PrimaryButton size={buttonSizes.md}>메모 추가</PrimaryButton>
+          <PrimaryButton width="140px" size={buttonSizes.lg}>
+            메모 추가
+          </PrimaryButton>
         </EmptyContent>
       </Page>
     );

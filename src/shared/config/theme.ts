@@ -43,6 +43,9 @@ export interface ComponentColors {
     primary: string;
     secondary: string;
     muted: string;
+    onDark: string;
+    onPrimary: string;
+    onSecondary: string;
   };
   border: string;
   divider: string;
@@ -120,15 +123,15 @@ export const lightTheme: Theme = {
     },
     components: {
       primary: {
-        hover: '#b45309', // amber-700
-        active: '#92400e', // amber-800
+        hover: '#f59e0b', // amber-500
+        active: '#d97706', // amber-600
         focus: '#fcd34d', // amber-300
         disabled: '#fde68a', // amber-200
       },
       secondary: {
-        hover: '#57534e', // neutral-600
-        active: '#44403c', // neutral-700
-        focus: '#a8a29e', // neutral-400
+        hover: '#78716c', // neutral-500
+        active: '#a8a29e', // neutral-400
+        focus: '#d6d3d1', // neutral-300
         disabled: '#e7e5e4', // neutral-200
       },
       background: {
@@ -137,9 +140,12 @@ export const lightTheme: Theme = {
         surfaceHover: '#f5f4f0', // slightly darker beige
       },
       text: {
-        primary: '#292524', // neutral-800
+        primary: '#292524', // neutral-800 (일반 배경용)
         secondary: '#57534e', // neutral-600
         muted: '#78716c', // neutral-500
+        onDark: '#ffffff', // 진한 배경 위 텍스트
+        onPrimary: '#ffffff', // primary 버튼 위 텍스트 (amber 배경 위)
+        onSecondary: '#ffffff', // secondary 버튼 위 텍스트 (neutral 배경 위)
       },
       border: '#e7e5e0', // very light neutral
       divider: '#ebe8e1', // subtle line divider
@@ -220,6 +226,9 @@ export const darkTheme: Theme = {
         primary: '#f0f0f0', // bright white-ish
         secondary: '#b0b0b0', // light gray
         muted: '#8a8a8a', // muted gray
+        onDark: '#ffffff', // 매우 진한 배경 위 텍스트
+        onPrimary: '#ffffff', // primary 버튼 위 텍스트
+        onSecondary: '#000000', // secondary 버튼 위 텍스트
       },
       border: '#404040', // dark border gray
       divider: '#4a4a4a', // divider line
