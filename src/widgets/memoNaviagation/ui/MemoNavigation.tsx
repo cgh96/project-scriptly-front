@@ -1,8 +1,7 @@
+import { MemoNavigationItem } from '@/entities/memo/ui/MemoNavigationItem';
 import { mockMemos } from '@/shared/mock/memo';
 import { EmptyContent } from '@/shared/ui/empty/EmptyContent';
 import { List } from '@/shared/ui/layout/List';
-
-import { MemoNavigationItem } from './MemoNavigationItem';
 
 export const MemoNavigation = () => {
   return (
