@@ -1,6 +1,6 @@
 // entities/memo/model/repositoryAtom.ts
+import { getIndexedDB } from '@shared/lib/indexedDB';
 import { atom } from 'jotai';
-import { getIndexedDB } from 'shared/lib/indexedDB';
 
 import { memoRepository } from '../api';
 
