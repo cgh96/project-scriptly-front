@@ -1,11 +1,21 @@
-import { useAtom } from 'jotai';
 import { useCallback } from 'react';
 
-import { type CreateMemoRequest, type Memo, memoRepositoryAtom } from '@/entities';
+import { type CreateMemoRequest, type Memo } from '@/entities';
+import { getIdbMemoRepository } from '@/entities/memo/api';
 import { useMutationData } from '@/shared/hooks/useMutateData';
 
-export const useCreateMemo = () => {
-  const [{ createMemo }] = useAtom(memoRepositoryAtom);
+interface UseCreateMemoOptions {
+  useHttp?: boolean;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const useCreateMemo = (options?: UseCreateMemoOptions) => {
+  const createMemo = async (params: CreateMemoRequest) => {
+    // @TODO : Http 메모 리포지토리 추가 시 조건부 처리
+    const repository = await getIdbMemoRepository();
+    return await repository.createMemo(params);
+  };
+
   const {
     mutate: mutateMemo,
     data,
@@ -18,7 +28,7 @@ export const useCreateMemo = () => {
     (params: CreateMemoRequest) => {
       return mutateMemo(createMemo, params);
     },
-    [mutateMemo, createMemo],
+    [mutateMemo],
   );
 
   return {

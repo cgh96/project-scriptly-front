@@ -1,10 +1,9 @@
 import { createBrowserRouter } from 'react-router';
 
 import { RootLayout } from '@/app/layout/RootLayout';
-import { loadMemos } from '@/features/memos/model';
+import { loadIdbMemos } from '@/features/memos/model';
 import { EntryPage } from '@/pages/entry/ui/EntryPage';
 import { MemoPage } from '@/pages/memo/ui/MemoPage';
-import { getIndexedDB } from '@/shared/lib/indexedDB';
 import { IndexedDBLoading } from '@/shared/ui/loading/IndexedDBLoading';
 
 /** React Router (Data Mode)
@@ -18,18 +17,16 @@ import { IndexedDBLoading } from '@/shared/ui/loading/IndexedDBLoading';
  */
 
 /** 데이터베이스 초기화 로더 */
-const dbLoader = async () => {
-  const db = await getIndexedDB();
+const localDataLoader = async () => {
   // indexedDb(로컬)에 있는 데이터 가져와서 atoms에 저장하기
-  await loadMemos(db);
-  return { db };
+  await loadIdbMemos();
 };
 
 export const router = createBrowserRouter([
   {
     path: '/',
     Component: RootLayout,
-    loader: dbLoader,
+    loader: localDataLoader,
     children: [
       {
         index: true,

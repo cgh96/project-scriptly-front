@@ -1,13 +1,14 @@
 import { memosAtom, memosErrorAtom, memosLoadingAtom } from '@/entities';
-import { memoRepository } from '@/entities/memo/api';
+import { getIdbMemoRepository } from '@/entities/memo/api';
 import { store } from '@/shared/atoms';
 
-export const loadMemos = async (db: IDBDatabase) => {
+/** IndexedDB에 저장된 메모 데이터를 가져와서 atoms에 저장 */
+export const loadIdbMemos = async () => {
   store.set(memosLoadingAtom, true);
   store.set(memosErrorAtom, null);
 
   try {
-    const repository = memoRepository({ db, useHttp: false });
+    const repository = await getIdbMemoRepository();
     const memos = await repository.getMemos();
 
     store.set(memosAtom, memos);

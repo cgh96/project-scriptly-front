@@ -1,5 +1,7 @@
 import type { CreateMemoRequest, Memo, UpdateMemoRequest } from '@/entities/memo/model/types';
+import { getIndexedDB } from '@/shared/lib/indexedDB';
 
+import { createHttpMemoRepository } from './memo.http.repository';
 import { createIdbMemoRepository } from './memo.idb.repository';
 
 export interface MemoRepository {
@@ -10,22 +12,22 @@ export interface MemoRepository {
   deleteMemo(id: string): Promise<Memo>;
 }
 
-export interface MemoRepositoryOptions {
-  useHttp: boolean;
-  db?: IDBDatabase;
-  // http?: AxiosInstance;
-}
+/** repository 인스턴스 관리 (싱글톤) */
+let idbMemoRepository: MemoRepository | null = null;
+let httpMemoRepository: MemoRepository | null = null;
 
-/**
- * IndexedDB는 의존성 주입 방식으로 구현.
- * Http / IndexedDB 중 무엇을 사용할지는 flag 값으로 결정.
- */
-
-/** @TODO : Http 메모 리포지토리 생성 및 반환 */
-export const memoRepository = ({ db, useHttp }: MemoRepositoryOptions): MemoRepository => {
-  if (useHttp) {
-    // Http 메모 리포지토리 생성 및 반환
+export const getIdbMemoRepository = async (): Promise<MemoRepository> => {
+  if (!idbMemoRepository) {
+    const db = await getIndexedDB();
+    idbMemoRepository = createIdbMemoRepository(db);
   }
+  return idbMemoRepository;
+};
 
-  return createIdbMemoRepository(db!);
+/** @TODO: Http 메모 리포지토리 생성 및 반환 */
+export const getHttpMemoRepository = async () => {
+  if (!httpMemoRepository) {
+    httpMemoRepository = createHttpMemoRepository();
+  }
+  return httpMemoRepository;
 };
