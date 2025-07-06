@@ -74,16 +74,19 @@ export const buttonSizeStyles = {
     padding: `${spacing.xs} ${spacing.sm}`,
     fontSize: fontSizes.small,
     borderRadius: borderRadius.md,
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
   },
   md: {
     padding: `${spacing.sm} ${spacing.md}`,
     fontSize: fontSizes.body,
     borderRadius: borderRadius.md,
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
   },
   lg: {
     padding: `${spacing.sm} ${spacing.md}`,
     fontSize: fontSizes.h5,
     borderRadius: borderRadius.md,
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
   },
 } as const;
 

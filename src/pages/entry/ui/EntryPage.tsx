@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLoaderData, useNavigate } from 'react-router';
 
+import { CreateMemoIconButton } from '@/features';
 import { buttonSizes } from '@/shared/config/styles';
 import { PrimaryButton } from '@/shared/ui/button';
 import { EmptyContent } from '@/shared/ui/empty/EmptyContent';
@@ -22,6 +23,7 @@ export const EntryPage = () => {
     return (
       <Page className="entry-page">
         <EmptyContent title="메모가 없습니다.">
+          <CreateMemoIconButton />
           <PrimaryButton width="140px" size={buttonSizes.lg}>
             메모 추가
           </PrimaryButton>

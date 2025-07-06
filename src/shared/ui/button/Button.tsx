@@ -14,11 +14,16 @@ type ButtonProps = {
 };
 
 const BaseButtonStyle = styled.button<ButtonProps>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: ${({ width }) => width || 'auto'};
-  min-width: 64px;
+  min-width: 32px;
   padding: ${({ size }) => buttonSizeStyles[size].padding};
 
   border-radius: ${({ size }) => buttonSizeStyles[size].borderRadius};
+  box-shadow: ${({ size }) => buttonSizeStyles[size].boxShadow};
 
   font-size: ${({ size }) => buttonSizeStyles[size].fontSize};
   font-weight: 900;
