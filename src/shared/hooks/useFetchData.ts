@@ -18,7 +18,7 @@ export const useFetchData = <T>(fetchFn: () => Promise<T>, options?: UseFetchDat
 
   const { immediate = true, deps = [] } = options ? options : {};
 
-  const executeFetchFn = useCallback(async () => {
+  const refetch = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -41,16 +41,16 @@ export const useFetchData = <T>(fetchFn: () => Promise<T>, options?: UseFetchDat
 
   useEffect(() => {
     if (immediate) {
-      executeFetchFn();
+      refetch();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [immediate, executeFetchFn, ...deps]);
+  }, [immediate, refetch, ...deps]);
 
   return {
     data,
     error,
     loading,
-    refetch: executeFetchFn,
+    refetch,
     setData,
     clearError,
   };
