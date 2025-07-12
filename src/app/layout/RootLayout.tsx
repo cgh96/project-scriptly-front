@@ -1,14 +1,19 @@
 import { Outlet } from 'react-router';
 
-import { spacing } from '@/shared/config/styles';
-import { FlexSplit } from '@/shared/ui/layout/FlexSplit';
 import { Navigation } from '@/widgets/navigation/ui/Navigation';
+
+import * as S from './RootLayout.styles';
 
 export const RootLayout = () => {
   return (
-    <FlexSplit $gap={spacing.sm}>
+    <S.Container>
+      {/* 좌측 */}
       <Navigation />
-      <Outlet />
-    </FlexSplit>
+
+      {/* 우측 */}
+      <S.Content>
+        <Outlet />
+      </S.Content>
+    </S.Container>
   );
 };
