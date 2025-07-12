@@ -1,15 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-export interface FetchState<T> {
-  data: T | null;
-  loading: boolean;
-  error: string | null;
-}
-
-interface UseFetchDataOptions {
-  immediate?: boolean; // 즉시 실행할지 여부
-  deps?: React.DependencyList; // 의존성 배열
-}
+import type { UseFetchDataOptions } from '../types';
 
 export const useFetchData = <T>(fetchFn: () => Promise<T>, options?: UseFetchDataOptions) => {
   const [data, setData] = useState<T | null>(null);

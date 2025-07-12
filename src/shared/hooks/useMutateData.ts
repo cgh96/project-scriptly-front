@@ -1,6 +1,12 @@
 import { useCallback, useState } from 'react';
 
-export const useMutationData = <TData, TPayload = void>() => {
+import type { UseMutationDataOptions } from '../types';
+
+export const useMutationData = <TData, TPayload = void>(
+  options?: UseMutationDataOptions<TData>,
+) => {
+  const { onSuccess, onError, onSettled } = options ?? {};
+
   const [data, setData] = useState<TData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -13,19 +19,25 @@ export const useMutationData = <TData, TPayload = void>() => {
       setLoading(true);
       setError(null);
 
+      let result: TData | null = null;
+      let errorMessage: string | null = null;
+
       try {
-        const result = await mutationFn(payload);
+        result = await mutationFn(payload);
         setData(result);
+        onSuccess?.(result);
         return result;
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : '오류 발생';
+        errorMessage = err instanceof Error ? err.message : '오류 발생';
         setError(errorMessage);
+        onError?.(errorMessage);
         return null;
       } finally {
         setLoading(false);
+        onSettled?.(result, errorMessage);
       }
     },
-    [],
+    [onSuccess, onError, onSettled],
   );
 
   const reset = useCallback(() => {

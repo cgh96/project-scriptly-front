@@ -6,9 +6,10 @@ import { useMutationData } from '@/shared/hooks/useMutateData';
 
 interface UseCreateMemoOptions {
   useHttp?: boolean;
+  onSuccess?: (data: Memo) => void;
+  onError?: (error: string) => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const useCreateMemo = (options?: UseCreateMemoOptions) => {
   const createMemo = async (params: CreateMemoRequest) => {
     // @TODO : Http 메모 리포지토리 추가 시 조건부 처리
@@ -22,7 +23,7 @@ export const useCreateMemo = (options?: UseCreateMemoOptions) => {
     error,
     loading,
     reset,
-  } = useMutationData<Memo, CreateMemoRequest>();
+  } = useMutationData<Memo, CreateMemoRequest>(options);
 
   const mutate = useCallback(
     (params: CreateMemoRequest) => {
