@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
-import { useGetMemos } from '@/entities/memo/api';
+import { useGetMemos } from '@/entities/memo/lib';
 import { buttonSizes } from '@/shared/config/styles';
 import { PrimaryButton } from '@/shared/ui/button';
 import { EmptyContent } from '@/shared/ui/empty/EmptyContent';

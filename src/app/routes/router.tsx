@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router';
 
 import { RootLayout } from '@/app/layout/RootLayout';
-import { loadIdbMemos } from '@/entities/memo/api';
+import { loadIdbMemos } from '@/entities/memo/lib';
 import { EntryPage } from '@/pages/entry/ui/EntryPage';
 import { MemoPage } from '@/pages/memo/ui/MemoPage';
 import { IndexedDBLoading } from '@/shared/ui/loading/IndexedDBLoading';

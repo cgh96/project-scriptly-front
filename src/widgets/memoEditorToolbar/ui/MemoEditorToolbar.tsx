@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
 
-import { useCreateMemo } from '@/entities/memo/api';
+import { useCreateMemo } from '@/entities/memo/lib';
 import { CreateMemoIconButton } from '@/features/memoCreate/ui';
 
 import * as S from './MemoEditorToolbar.styles';
