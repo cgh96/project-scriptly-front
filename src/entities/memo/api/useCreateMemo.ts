@@ -3,11 +3,10 @@ import { useCallback } from 'react';
 import { type CreateMemoRequest, type Memo } from '@/entities';
 import { getIdbMemoRepository } from '@/entities/memo/api';
 import { useMutationData } from '@/shared/hooks/useMutateData';
+import type { UseMutationDataOptions } from '@/shared/types';
 
-interface UseCreateMemoOptions {
+interface UseCreateMemoOptions extends UseMutationDataOptions<Memo> {
   useHttp?: boolean;
-  onSuccess?: (data: Memo) => void;
-  onError?: (error: string) => void;
 }
 
 export const useCreateMemo = (options?: UseCreateMemoOptions) => {
