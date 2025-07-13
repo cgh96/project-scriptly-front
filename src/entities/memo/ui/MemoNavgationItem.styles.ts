@@ -10,7 +10,11 @@ interface MemoListItemProps {
 }
 
 export const MemoListItem = styled(ListItem)<MemoListItemProps>`
+  display: flex;
+  flex-direction: column;
+
   width: 100%;
+  min-height: 68px;
   padding: ${spacing.sm} 0;
 
   font-size: ${fontSizes.small};
@@ -22,4 +26,14 @@ export const MemoListItem = styled(ListItem)<MemoListItemProps>`
 
   background-color: ${({ $isSelected, theme }) =>
     $isSelected ? theme.colors.components.background.surfaceHover : 'transparent'};
+`;
+
+export const MemoTitle = styled.span`
+  font-size: ${fontSizes.h5};
+  font-weight: 600;
+`;
+
+export const MemoCreatedAt = styled.span`
+  font-size: ${fontSizes.small};
+  font-weight: 400;
 `;
