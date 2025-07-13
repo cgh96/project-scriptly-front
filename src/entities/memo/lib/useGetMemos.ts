@@ -1,4 +1,4 @@
-import { fetchMemosAtom, memosAtom, memosErrorAtom, memosLoadingAtom } from '@/entities';
+import { memosAtom, memosErrorAtom, memosLoadingAtom } from '@/entities';
 import { getIdbMemoRepository } from '@/entities/memo/api';
 import { useAtomFetchData } from '@/shared/hooks/useAtomFetchData';
 
@@ -20,7 +20,6 @@ export const useGetMemos = (options?: UseGetMemosOptions) => {
     memosAtom,
     memosLoadingAtom,
     memosErrorAtom,
-    fetchMemosAtom,
     options,
   );
 

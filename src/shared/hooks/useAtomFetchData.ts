@@ -1,6 +1,5 @@
-// shared/hooks/useAtomFetchData.ts
-import { type PrimitiveAtom, useAtom, type WritableAtom } from 'jotai';
-import { useCallback, useEffect } from 'react';
+import { type PrimitiveAtom, useAtom } from 'jotai';
+import { useEffect } from 'react';
 
 interface UseAtomFetchDataOptions {
   immediate?: boolean;
@@ -12,30 +11,46 @@ export const useAtomFetchData = <T>(
   dataAtom: PrimitiveAtom<T>,
   loadingAtom: PrimitiveAtom<boolean>,
   errorAtom: PrimitiveAtom<string | null>,
-  fetchAtom: WritableAtom<null, [() => Promise<T>], Promise<void>>,
   options?: UseAtomFetchDataOptions,
 ) => {
-  const [data] = useAtom(dataAtom);
-  const [loading] = useAtom(loadingAtom);
-  const [error] = useAtom(errorAtom);
-  const [, fetch] = useAtom(fetchAtom);
+  const [data, setData] = useAtom(dataAtom);
+  const [loading, setLoading] = useAtom(loadingAtom);
+  const [error, setError] = useAtom(errorAtom);
 
   const { immediate = true, deps = [] } = options || {};
 
-  const refetch = useCallback(async () => {
-    fetch(fetchFn);
-  }, [fetch, fetchFn]);
+  const refetch = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const result = await fetchFn();
+      setData(result);
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : '조회 실패';
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const clearError = () => {
+    setError(null);
+  };
 
   useEffect(() => {
     if (immediate) {
       refetch();
     }
-  }, [immediate, refetch, ...deps]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [immediate, ...deps]);
 
   return {
     data,
     error,
     loading,
     refetch,
+    setData,
+    clearError,
   };
 };

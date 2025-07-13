@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 import type { UseMutationDataOptions } from '../types';
 
@@ -11,40 +11,37 @@ export const useMutationData = <TData, TPayload = void>(
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const mutate = useCallback(
-    async (
-      mutationFn: (payload: TPayload) => Promise<TData>,
-      payload: TPayload,
-    ): Promise<TData | null> => {
-      setLoading(true);
-      setError(null);
+  const mutate = async (
+    mutationFn: (payload: TPayload) => Promise<TData>,
+    payload: TPayload,
+  ): Promise<TData | null> => {
+    setLoading(true);
+    setError(null);
 
-      let result: TData | null = null;
-      let errorMessage: string | null = null;
+    let result: TData | null = null;
+    let errorMessage: string | null = null;
 
-      try {
-        result = await mutationFn(payload);
-        setData(result);
-        onSuccess?.(result);
-        return result;
-      } catch (err) {
-        errorMessage = err instanceof Error ? err.message : '오류 발생';
-        setError(errorMessage);
-        onError?.(errorMessage);
-        return null;
-      } finally {
-        setLoading(false);
-        onSettled?.(result, errorMessage);
-      }
-    },
-    [onSuccess, onError, onSettled],
-  );
+    try {
+      result = await mutationFn(payload);
+      setData(result);
+      onSuccess?.(result);
+      return result;
+    } catch (err) {
+      errorMessage = err instanceof Error ? err.message : '오류 발생';
+      setError(errorMessage);
+      onError?.(errorMessage);
+      return null;
+    } finally {
+      setLoading(false);
+      onSettled?.(result, errorMessage);
+    }
+  };
 
-  const reset = useCallback(() => {
+  const reset = () => {
     setData(null);
     setError(null);
     setLoading(false);
-  }, []);
+  };
 
   return {
     mutate,
