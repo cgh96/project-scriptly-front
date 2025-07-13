@@ -40,13 +40,20 @@ export type BreakPoints = (typeof breakPoints)[keyof typeof breakPoints];
 
 // gap
 export const spacing = {
-  xs: '0.25rem', // 4px
-  sm: '0.5rem', // 8px
-  md: '1rem', // 16px
-  lg: '1.5rem', // 24px
-  xl: '2rem', // 32px
-  '2xl': '3rem', // 48px
-  '3xl': '4rem', // 64px
+  /** 4px */
+  xs: '0.25rem',
+  /** 8px */
+  sm: '0.5rem',
+  /** 16px */
+  md: '1rem',
+  /** 24px */
+  lg: '1.5rem',
+  /** 32px */
+  xl: '2rem',
+  /** 48px */
+  '2xl': '3rem',
+  /** 64px */
+  '3xl': '4rem',
 } as const;
 
 export type Spacing = (typeof spacing)[keyof typeof spacing];
