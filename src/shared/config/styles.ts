@@ -60,34 +60,9 @@ export const borderRadius = {
 
 export type BorderRadius = (typeof borderRadius)[keyof typeof borderRadius];
 
-export const buttonSizes = {
+export const componentSize = {
   sm: 'sm',
   md: 'md',
   lg: 'lg',
 } as const;
-
-export type ButtonSizes = (typeof buttonSizes)[keyof typeof buttonSizes];
-
-// 버튼 사이즈별 스타일 매핑
-export const buttonSizeStyles = {
-  sm: {
-    padding: `${spacing.xs} ${spacing.sm}`,
-    fontSize: fontSizes.small,
-    borderRadius: borderRadius.md,
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-  },
-  md: {
-    padding: `${spacing.sm} ${spacing.md}`,
-    fontSize: fontSizes.body,
-    borderRadius: borderRadius.md,
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-  },
-  lg: {
-    padding: `${spacing.sm} ${spacing.md}`,
-    fontSize: fontSizes.h5,
-    borderRadius: borderRadius.md,
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-  },
-} as const;
-
-export type ButtonSizeStyles = (typeof buttonSizeStyles)[keyof typeof buttonSizeStyles]; // 'sm'|'md'|'lg'
+export type ComponentSize = (typeof componentSize)[keyof typeof componentSize];

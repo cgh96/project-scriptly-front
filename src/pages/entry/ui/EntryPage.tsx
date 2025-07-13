@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
 import { useGetMemos } from '@/entities/memo/lib';
-import { buttonSizes } from '@/shared/config/styles';
-import { PrimaryButton } from '@/shared/ui/button';
+import { buttonSize, PrimaryButton } from '@/shared/ui/button';
 import { EmptyContent } from '@/shared/ui/empty/EmptyContent';
 
 /** 메모가 하나도 없을 때 보여줄 페이지 */
@@ -20,7 +19,7 @@ export const EntryPage = () => {
   if (memos.length === 0) {
     return (
       <EmptyContent title="메모가 없습니다.">
-        <PrimaryButton width="140px" size={buttonSizes.lg}>
+        <PrimaryButton width="140px" size={buttonSize.lg}>
           메모 추가
         </PrimaryButton>
       </EmptyContent>
