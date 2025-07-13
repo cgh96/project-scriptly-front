@@ -1,3 +1,5 @@
+import { useParams } from 'react-router';
+
 import { useTheme } from '@/app/providers/ThemeProvider';
 import type { Memo } from '@/entities/memo/model/types';
 
@@ -9,6 +11,11 @@ type MemoNavigationItemProps = {
 
 export const MemoNavigationItem = ({ memo }: MemoNavigationItemProps) => {
   const { theme } = useTheme();
+  const { id } = useParams();
 
-  return <MemoListItem theme={theme}>{memo.title}</MemoListItem>;
+  return (
+    <MemoListItem theme={theme} isSelected={id === memo.id}>
+      {memo.title}
+    </MemoListItem>
+  );
 };
