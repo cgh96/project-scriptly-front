@@ -11,10 +11,10 @@ type MemoNavigationItemProps = {
 
 export const MemoNavigationItem = ({ memo }: MemoNavigationItemProps) => {
   const { theme } = useTheme();
-  const { id } = useParams();
+  const { memoId } = useParams();
 
   return (
-    <MemoListItem theme={theme} isSelected={id === memo.id}>
+    <MemoListItem theme={theme} isSelected={memoId === memo.id}>
       {memo.title}
     </MemoListItem>
   );
