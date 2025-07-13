@@ -5,7 +5,7 @@ import type { Theme } from '@/shared/config/theme';
 import { ListItem } from '@/shared/ui/layout/ListItem';
 
 interface MemoListItemProps {
-  isSelected: boolean;
+  $isSelected: boolean;
   theme: Theme;
 }
 
@@ -20,6 +20,6 @@ export const MemoListItem = styled(ListItem)<MemoListItemProps>`
   overflow: hidden;
   white-space: nowrap;
 
-  background-color: ${({ isSelected, theme }) =>
-    isSelected ? theme.colors.components.background.surfaceHover : 'transparent'};
+  background-color: ${({ $isSelected, theme }) =>
+    $isSelected ? theme.colors.components.background.surfaceHover : 'transparent'};
 `;
