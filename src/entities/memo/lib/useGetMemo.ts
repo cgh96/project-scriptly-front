@@ -1,7 +1,5 @@
 import { getIdbMemoRepository } from '@/entities/memo/api';
-import { useAtomFetchData } from '@/shared/hooks/useAtomFetchData';
-
-import { memoAtom, memoErrorAtom, memoLoadingAtom } from '../model';
+import { useFetchData } from '@/shared/hooks/useFetchData';
 
 type UseGetMemosOptions = {
   useHttp?: boolean;
@@ -20,16 +18,10 @@ export const useGetMemo = (memoId: string = '', options?: UseGetMemosOptions) =>
     return await repository.getMemo(memoId);
   };
 
-  const { data, loading, error, refetch } = useAtomFetchData(
-    () => getMemo(memoId),
-    memoAtom,
-    memoLoadingAtom,
-    memoErrorAtom,
-    {
-      immediate,
-      deps: [memoId],
-    },
-  );
+  const { data, loading, error, refetch } = useFetchData(() => getMemo(memoId), {
+    immediate,
+    deps: [memoId],
+  });
 
   return { data, loading, error, refetch };
 };

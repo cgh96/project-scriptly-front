@@ -31,8 +31,8 @@ export interface CreateMemoRequest {
 }
 
 export interface UpdateMemoRequest {
-  title?: string;
-  content?: string;
+  title: string;
+  content: string;
   isPinned?: boolean;
   isPublic?: boolean;
   password?: string;
