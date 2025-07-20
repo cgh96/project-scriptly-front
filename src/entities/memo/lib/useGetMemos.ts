@@ -15,13 +15,5 @@ export const useGetMemos = (options?: UseGetMemosOptions) => {
     return await repository.getMemos();
   };
 
-  const { data, loading, error, refetch } = useAtomFetchData(
-    getMemos,
-    memosAtom,
-    memosLoadingAtom,
-    memosErrorAtom,
-    options,
-  );
-
-  return { data, loading, error, refetch };
+  return useAtomFetchData(getMemos, memosAtom, memosLoadingAtom, memosErrorAtom, options);
 };

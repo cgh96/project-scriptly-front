@@ -1,4 +1,4 @@
-export type UseMutationDataOptions<TData> = {
+export type UseMutateDataOptions<TData> = {
   onSuccess?: (data: TData) => void;
   onError?: (error: string) => void;
   onSettled?: (data: TData | null, error: string | null) => void;

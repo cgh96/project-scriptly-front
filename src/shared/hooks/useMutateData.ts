@@ -1,10 +1,8 @@
 import { useState } from 'react';
 
-import type { UseMutationDataOptions } from '../types';
+import type { UseMutateDataOptions } from '../types';
 
-export const useMutationData = <TData, TPayload = void>(
-  options?: UseMutationDataOptions<TData>,
-) => {
+export const useMutateData = <TData, TPayload = void>(options?: UseMutateDataOptions<TData>) => {
   const { onSuccess, onError, onSettled } = options ?? {};
 
   const [data, setData] = useState<TData | null>(null);

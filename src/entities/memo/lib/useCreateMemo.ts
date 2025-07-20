@@ -2,10 +2,10 @@ import { useCallback } from 'react';
 
 import { type CreateMemoRequest, type Memo } from '@/entities';
 import { getIdbMemoRepository } from '@/entities/memo/api';
-import { useMutationData } from '@/shared/hooks/useMutateData';
-import type { UseMutationDataOptions } from '@/shared/types';
+import { useMutateData } from '@/shared/hooks/useMutateData';
+import type { UseMutateDataOptions } from '@/shared/types';
 
-interface UseCreateMemoOptions extends UseMutationDataOptions<Memo> {
+interface UseCreateMemoOptions extends UseMutateDataOptions<Memo> {
   useHttp?: boolean;
 }
 
@@ -22,7 +22,7 @@ export const useCreateMemo = (options?: UseCreateMemoOptions) => {
     error,
     loading,
     reset,
-  } = useMutationData<Memo, CreateMemoRequest>(options);
+  } = useMutateData<Memo, CreateMemoRequest>(options);
 
   const mutate = useCallback(
     (params: CreateMemoRequest) => {
