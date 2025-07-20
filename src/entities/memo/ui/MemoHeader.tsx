@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 import { useTheme } from '@/app/providers/ThemeProvider';
+import { clearContentEditable, isContentEditableEmpty } from '@/shared/lib/utils/contentEditable';
 
 import * as S from './MemoHeader.styles';
 
@@ -20,18 +21,9 @@ export const MemoHeader = ({
   const titleRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
 
-  const checkContentEmpty = (element: HTMLDivElement) => {
-    const text = element.textContent;
-    const innerHTML = element.innerHTML;
-
-    return !text || text?.length === 0 || innerHTML === '<br>' || innerHTML === '';
-  };
-
   const handleInput = (event: React.FormEvent<HTMLDivElement>) => {
-    const isTextEmpty = checkContentEmpty(event.currentTarget);
-
-    if (isTextEmpty) {
-      event.currentTarget.textContent = '';
+    if (isContentEditableEmpty(event.currentTarget)) {
+      clearContentEditable(event.currentTarget);
     }
 
     onChangeTitle(event.currentTarget.textContent || '');

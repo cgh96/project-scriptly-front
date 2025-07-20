@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react';
 
+import { clearContentEditable, isContentEditableEmpty } from '@/shared/lib/utils/contentEditable';
+
 import * as S from './MarkdownEditor.styles';
 
 interface MarkdownEditorProps {
@@ -11,6 +13,10 @@ export const MarkdownEditor = ({ content, onChangeContent }: MarkdownEditorProps
   const contentRef = useRef<HTMLDivElement>(null);
 
   const handleChangeContent = (event: React.FormEvent<HTMLDivElement>) => {
+    if (isContentEditableEmpty(event.currentTarget)) {
+      clearContentEditable(event.currentTarget);
+    }
+
     onChangeContent(event.currentTarget.textContent || '');
   };
 
