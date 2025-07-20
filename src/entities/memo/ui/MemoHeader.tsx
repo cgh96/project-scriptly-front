@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react';
 
+import { useTheme } from '@/app/providers/ThemeProvider';
+
 import * as S from './MemoHeader.styles';
 
 interface MemoHeaderProps {
@@ -16,11 +18,11 @@ export const MemoHeader = ({
   onChangeTitle,
 }: MemoHeaderProps) => {
   const titleRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
 
   const checkContentEmpty = (element: HTMLDivElement) => {
     const text = element.textContent;
     const innerHTML = element.innerHTML;
-    console.log(text, innerHTML);
 
     return !text || text?.length === 0 || innerHTML === '<br>' || innerHTML === '';
   };
@@ -49,6 +51,7 @@ export const MemoHeader = ({
       <S.Title
         ref={titleRef}
         contentEditable
+        theme={theme}
         onInput={handleInput}
         data-placeholder={titlePlaceholder || '제목 없음'}
       />
