@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 import type { Theme } from '@/shared/config/theme';
 
-type ConatainerProps = {
+interface ConatainerProps {
   theme: Theme;
-};
+}
 
 export const Conatainer = styled.nav<ConatainerProps>`
   display: flex;

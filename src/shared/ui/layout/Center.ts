@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 import { spacing } from '@/shared/config/styles';
 
-type CenterProps = {
+interface CenterProps {
   padding?: string;
-};
+}
 
 export const Center = styled.div<CenterProps>`
   display: flex;

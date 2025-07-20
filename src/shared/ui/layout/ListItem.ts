@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { type Spacing, spacing } from '@/shared/config/styles';
 import type { Theme } from '@/shared/config/theme';
 
-type ListItemProps = {
+interface ListItemProps {
   theme: Theme;
   padding?: Spacing;
-};
+}
 
 export const ListItem = styled.li<ListItemProps>`
   width: 100%;

@@ -12,7 +12,9 @@ const DBInitializer = () => {
   return null;
 };
 
-type DBProviderProps = { children: ReactNode };
+interface DBProviderProps {
+  children: ReactNode;
+}
 
 export function DBProvider({ children }: DBProviderProps) {
   return (

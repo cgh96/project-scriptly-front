@@ -5,9 +5,9 @@ import type { Memo } from '@/entities/memo/model/types';
 
 import * as S from './MemoNavgationItem.styles';
 
-type MemoNavigationItemProps = {
+interface MemoNavigationItemProps {
   memo: Memo;
-};
+}
 
 export const MemoNavigationItem = ({ memo }: MemoNavigationItemProps) => {
   const { theme } = useTheme();

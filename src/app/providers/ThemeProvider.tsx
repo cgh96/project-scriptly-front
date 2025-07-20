@@ -14,9 +14,9 @@ export type ThemeContext = {
 
 const themeContext = createContext<ThemeContext | undefined>(undefined);
 
-export type ThemeProviderProps = {
+export interface ThemeProviderProps {
   children: ReactNode;
-};
+}
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [isDark, setIsDark] = useState(false);

@@ -38,13 +38,13 @@ export const buttonSizeStyle = {
 
 export type ButtonSizeStyle = (typeof buttonSizeStyle)[keyof typeof buttonSizeStyle]; // 'sm'|'md'|'lg'
 
-type ButtonProps = {
+interface ButtonProps {
   width?: string;
   size: ButtonSize;
   disabled?: boolean;
   theme: Theme;
   children: React.ReactNode;
-};
+}
 
 const BaseButtonStyle = styled.button<ButtonProps>`
   display: flex;
@@ -75,12 +75,12 @@ const PrimaryButtonStyle = styled(BaseButtonStyle)<ButtonProps>`
   }
 `;
 
-type PrimaryButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+interface PrimaryButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   width?: string;
   size?: ButtonSize;
   disabled?: boolean;
   children: React.ReactNode;
-};
+}
 
 export const PrimaryButton = ({
   width,
