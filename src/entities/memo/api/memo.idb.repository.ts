@@ -114,7 +114,7 @@ export const createIdbMemoRepository = (db: IDBDatabase): MemoRepository => {
       async (store) => {
         const entity = toIdb(updatedDomain);
         await new Promise<void>((resolve, reject) => {
-          const req = store.put(entity);
+          const req = store.put({ ...entity, id });
           req.onsuccess = () => resolve();
           req.onerror = () => reject(req.error);
         });
