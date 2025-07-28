@@ -4,6 +4,7 @@ import { RootLayout } from '@/app/layout/RootLayout';
 import { loadIdbMemos } from '@/entities/memo/lib';
 import { EntryPage } from '@/pages/entry/ui/EntryPage';
 import { MemoPage } from '@/pages/memo/ui/MemoPage';
+import { Loading } from '@/shared/ui';
 import { IndexedDBLoading } from '@/shared/ui/loading/IndexedDBLoading';
 
 /** React Router (Data Mode)
@@ -37,6 +38,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'memo/:memoId',
+        hydrateFallbackElement: <Loading />,
         Component: MemoPage,
       },
     ],
