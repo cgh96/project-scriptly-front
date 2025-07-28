@@ -2,17 +2,17 @@ import { useState } from 'react';
 
 import type { UseMutateDataOptions } from '../types';
 
-export const useMutateData = <TData, TPayload = void>(options?: UseMutateDataOptions<TData>) => {
+export const useMutateData = <TData, TPayload>(
+  mutationFn: (payload: TPayload) => Promise<TData>,
+  options?: UseMutateDataOptions<TData>,
+) => {
   const { onSuccess, onError, onSettled } = options ?? {};
 
   const [data, setData] = useState<TData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const mutate = async (
-    mutationFn: (payload: TPayload) => Promise<TData>,
-    payload: TPayload,
-  ): Promise<TData | null> => {
+  const mutate = async (payload: TPayload): Promise<TData | null> => {
     setLoading(true);
     setError(null);
 

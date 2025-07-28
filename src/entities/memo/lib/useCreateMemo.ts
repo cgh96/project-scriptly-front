@@ -22,11 +22,11 @@ export const useCreateMemo = (options?: UseCreateMemoOptions) => {
     error,
     loading,
     reset,
-  } = useMutateData<Memo, CreateMemoRequest>(options);
+  } = useMutateData<Memo, CreateMemoRequest>(createMemo, options);
 
   const mutate = useCallback(
     (params: CreateMemoRequest) => {
-      return mutateMemo(createMemo, params);
+      return mutateMemo(params);
     },
     [mutateMemo],
   );

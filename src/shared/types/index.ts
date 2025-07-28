@@ -1,6 +1,9 @@
 export type UseMutateDataOptions<TData> = {
+  /** 성공 시 호출 */
   onSuccess?: (data: TData) => void;
+  /** 에러 시 호출 */
   onError?: (error: string) => void;
+  /** 성공 또는 에러 시 호출 */
   onSettled?: (data: TData | null, error: string | null) => void;
 };
 
